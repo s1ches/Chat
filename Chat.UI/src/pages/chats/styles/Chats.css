@@ -1,0 +1,380 @@
+/* Основной контейнер для сообщения */
+.message {
+    background-color: #f9f9f9;
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    max-width: 40%; /* Ограничиваем максимальную ширину сообщения */
+    margin-left: 12px;
+    margin-right: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.message.my-message{
+    margin-left: auto; /* Центрируем сообщение */
+    margin-right: 12px;
+    background-color: rgba(0, 123, 255, 0.71);
+    color: white;
+}
+
+.message.my-message .message-sender {
+    color: white;
+}
+
+.message.my-message .message-text {
+    color: white;
+}
+
+.message.my-message .message-footer {
+    color: white;
+}
+
+/* Имя отправителя, теперь оно вне блока сообщения */
+.message-sender {
+    font-size: 14px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 5px; /* Отступ между именем и сообщением */
+}
+
+/* Текст сообщения */
+.message-text {
+    font-size: 16px;
+    line-height: 1.4;
+    color: #333;
+    word-wrap: break-word; /* Разрыв слов, если они не помещаются */
+}
+
+/* Нижняя часть с датой (футер) */
+.message-footer {
+    font-size: 12px;
+    color: #888;
+    text-align: right; /* Выравнивание даты по правому краю */
+    width: 40%; /* Уменьшена ширина футера до 40% */
+    display: flex;
+    justify-content: flex-end; /* Выравнивание даты по правому краю */
+    margin-left: auto; /* Центрируем футер */
+}
+
+/* Для сообщений от других пользователей */
+.message.received {
+    background-color: #e0f7fa;
+    border-left: 5px solid #00796b; /* Отличие для полученных сообщений */
+}
+
+/* Для сообщений от текущего пользователя */
+.message.sent {
+    background-color: #c8e6c9;
+    border-left: 5px solid #388e3c;
+    align-self: flex-end; /* Сообщение выравнивается по правому краю */
+}
+
+
+.chats-container {
+    display: flex;
+    flex: 1;
+    height: calc(100vh - 60px); /* Высота страницы минус высота хедера */
+    overflow: hidden;
+}
+
+.chat-bar {
+    width: 300px; /* Фиксированная ширина для панели чатов */
+    background-color: rgba(0, 123, 255, 0.84);
+    overflow-y: auto; /* Скролл для длинного списка чатов */
+    color: #fff;
+    padding-bottom: 50px;
+}
+
+.no-chat {
+    width: 100%;
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background-color: #fff;
+    overflow-y: auto; /* Скролл для длинного чата */
+}
+
+.chat {
+    padding: 10px 15px;
+    cursor: pointer;
+    font-size: 16px;
+    color: #ffffff;
+    border-bottom: 2px solid rgba(208, 244, 240, 0.74);
+    background-color: rgb(0, 123, 255);
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.chat:hover {
+    background-color: #e0e0e0;
+    color: #000;
+}
+
+.chat:active {
+    background-color: #d0d0d0;
+}
+
+.chat span {
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* Если чат выбран */
+.chat.selected {
+    background-color: #cce7ff;
+    color: #0056b3;
+    font-weight: bold;
+}
+
+.chat-window {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+    background-color: #f9f9f9;
+    padding: 30px 30px 50px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.chat-window h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+    color: #333;
+    border-bottom: 2px solid #ddd;
+    padding-bottom: 5px;
+}
+
+.messages {
+    flex: 1; /* Заполняет доступное пространство */
+    overflow-y: auto; /* Добавляем скролл для длинных чатов */
+    margin-bottom: 10px;
+    padding: 10px;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.1);
+    scroll-behavior: smooth; /* Плавная прокрутка */
+}
+
+.message-anchor{
+    width: 0;
+    height: 0;
+}
+
+.message-input {
+    display: flex;
+    gap: 10px; /* Расстояние между input и кнопкой */
+    align-items: center;
+
+}
+
+.message-input input {
+    flex: 1; /* Растягивает input на доступное место */
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.message-input input:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.3);
+}
+
+.message-input button {
+    padding: 10px 15px;
+    font-size: 16px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.message-input button:hover {
+    background-color: #0056b3;
+}
+
+.message-input button:active {
+    background-color: #004494;
+}
+
+
+.chat-list {
+    flex-grow: 1; /* Список чатов занимает всё доступное пространство */
+    margin-bottom: 30px;
+}
+
+.chat-bar-add {
+    position: fixed; /* Прибиваем элемент к низу окна */
+    bottom: 0; /* Устанавливаем отступ от нижнего края */
+    left: 0; /* Прикрепляем к левому краю */
+    width: 50px; /* Занимаем всю ширину */
+    display: flex;
+    justify-content: center;
+    border-radius: 0 10px 10px 0;
+    align-items: center;
+    height: 50px; /* Высота панели */
+    background-color: #007bff; /* Синий фон */
+    color: white; /* Белый текст */
+    font-size: 24px; /* Размер шрифта */
+    font-weight: bold; /* Жирный шрифт */
+    cursor: pointer; /* Указатель при наведении */
+    border-top: 1px solid #ddd; /* Линия сверху */
+    border-right: 1px solid #ddd;
+    transition: background-color 0.3s ease; /* Плавная анимация смены фона */
+}
+
+.chat-bar-add:hover {
+    background-color: #0056b3; /* Более тёмный цвет при наведении */
+}
+
+/* Стили для overlay (фон модального окна) */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+/* Стили для самого модального окна */
+.modal {
+    background-color: #2348cd;
+    padding: 20px;
+    border-radius: 8px;
+    width: 400px;
+    color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    animation: fadeIn 0.3s linear; /* Плавная анимация появления */
+}
+
+/* Анимация появления модального окна */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* Заголовок модального окна */
+.modal h2 {
+    font-size: 24px;
+    margin: 0 0 16px;
+    text-align: center;
+    color: white;
+}
+
+/* Группа для формы (ввод) */
+.form-group {
+    margin-bottom: 16px;
+    color: white;
+}
+
+/* Метка для ввода */
+.form-group label {
+    display: block;
+    font-size: 14px;
+    margin-bottom: 8px;
+    color: white;
+}
+
+/* Поле ввода */
+.form-group input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    color: #333;
+    box-sizing: border-box;
+}
+
+/* Стиль для кнопок */
+.modal-actions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 16px;
+}
+
+.modal-actions button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+}
+
+.modal-actions button:hover {
+    background-color: #f0f0f0;
+}
+
+.modal-actions button:nth-child(1) {
+    background-color: #4c5caf; /* зеленая кнопка для создания */
+    color: white;
+}
+
+.modal-actions button:nth-child(2) {
+    background-color: #f44336; /* красная кнопка для отмены */
+    color: white;
+}
+
+.modal-actions button:nth-child(1):hover {
+    background-color: #455aa0;
+}
+
+.modal-actions button:nth-child(2):hover {
+    background-color: #e53935;
+}
+
+/* Список участников */
+.participant-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.participant-name {
+    padding: 8px 0;
+    font-size: 16px;
+    color: white;
+}
+
+/* Последний элемент списка без разделителя */
+.participant-name:last-child {
+    border-bottom: none;
+}
+
+/* Содержимое модального окна */
+.modal-content {
+    max-height: 300px;
+    align-items: center;
+    overflow-y: auto;
+    background-color: #2348cd;
+    border: none;
+    margin-bottom: 20px;
+    padding-right: 10px; /* Прокрутка не будет перекрывать текст */
+}
+
+.chat-name:hover{
+    cursor: pointer;
+}
